@@ -1,0 +1,8 @@
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\bin\Debug\Converter.exe.config
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\bin\Debug\Converter.exe
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\bin\Debug\Converter.pdb
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\obj\Debug\Converter.csprojResolveAssemblyReference.cache
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\obj\Debug\Converter.exe
+C:\Users\The Quiles Family\Documents\GitHub\Converter\Converter\Converter\obj\Debug\Converter.pdb
