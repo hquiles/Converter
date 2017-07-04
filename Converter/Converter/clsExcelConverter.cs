@@ -19,51 +19,34 @@ namespace Converter
     {
         public static void Main(string[] args)
         {
-            string strDirectory = "";
-            string strCurrentFilePath = "";
-            string[] strArrFiles = null;
-            string strCurrentFileName = "";
-            string strCurrentExtension = "";
-
-
+            string strOriginalPath = "";
+            string strDestinationPath = "";
+            string strFileName = "";
             do
             {
                 try
                 {
                     if (Directory.Exists(GetAppSetting("ScanningDirectory")))
                     {
-                        strDirectory = GetAppSetting("ScanningDirectory");
-
-                        if (Directory.GetFiles(strDirectory, "*.xlsx").Length != 0)
+                        if (Directory.GetFiles(GetAppSetting("ScanningDirectory"), "*.xlsx").Length != 0)
                         {
-                            strArrFiles = Directory.GetFiles(strDirectory, "*.xlsx");
-
-                            for (int file = 0; file < strArrFiles.Length; file++)
+                            for (int intFileIndex = 0; intFileIndex < Directory.GetFiles(GetAppSetting("ScanningDirectory"), "*.xlsx").Length; intFileIndex++)
                             {
-                                strCurrentFilePath = strArrFiles[file];
-                                strCurrentFileName = Path.GetFileName(strCurrentFilePath);
-                                strCurrentExtension = Path.GetExtension(strCurrentFilePath);
+                                //Process Excel File
 
-                                SetDocumentProperty(strCurrentFilePath, DocProperty.Title, strCurrentFileName);                               
-
-                                Debug.WriteLine($"Processing {file + 1} file.");
-                                Debug.WriteLine($"{Path.GetFileName(strCurrentFilePath)}");
-                                Debug.WriteLine("");
-
-                                File.Move(strArrFiles[file], $"{GetAppSetting("BackupDirectory")}{"\\"}" +
-                                    $"{Guid.NewGuid().ToString()}{strCurrentExtension}");
-
-                                System.Threading.Thread.Sleep(1000);                               
+                                //Backup Files
+                                strFileName = Path.GetFileName(Directory.GetFiles(GetAppSetting("ScanningDirectory"), "*.xlsx")[intFileIndex]);
+                                strOriginalPath = Directory.GetFiles(GetAppSetting("ScanningDirectory"), "*.xlsx")[intFileIndex];
+                                strDestinationPath = Path.Combine(GetAppSetting("BackupDirectory"), strFileName);
+                                BackupProcessedFile(strOriginalPath, strDestinationPath);
 
                             }
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"{ex.InnerException}\n{ex.StackTrace.Trim()}\n{strCurrentFileName}");
-                    throw;
+                    Debug.WriteLine(ex.StackTrace);
                 }
             } while (true);
 

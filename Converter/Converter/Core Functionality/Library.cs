@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,6 @@ namespace Converter
             }
             return theSheets;
         }
-
         public static int GetWorksheetCount(string strFileName)
         {
             Sheets theSheets = null;
@@ -39,7 +39,6 @@ namespace Converter
             return ((ICollection)theSheets).Count;
             throw new NotImplementedException();
         }
-
         public static string GetAppSetting(string key)
         {
             try
@@ -51,12 +50,11 @@ namespace Converter
                 throw;
             }
         }
-
-        public static string GetDocumentProperty(string filePath, DocProperty docProp)
+        public static string GetDocumentProperty(string strFilePath, DocProperty docProp)
         {
             string propertyValue = "";
 
-            using (SpreadsheetDocument wkbk = SpreadsheetDocument.Open(filePath, true))
+            using (SpreadsheetDocument wkbk = SpreadsheetDocument.Open(strFilePath, true))
             {
                 switch (docProp)
                 {
@@ -82,9 +80,9 @@ namespace Converter
             }
             return propertyValue;
         }
-        public static void SetDocumentProperty(string filePath, DocProperty docProp, string strValue)
+        public static void SetDocumentProperty(string strFilePath, DocProperty docProp, string strValue)
         {
-            using (SpreadsheetDocument wkbk = SpreadsheetDocument.Open(filePath, true))
+            using (SpreadsheetDocument wkbk = SpreadsheetDocument.Open(strFilePath, true))
             {
                 try
                 {
@@ -118,8 +116,17 @@ namespace Converter
                 }
             }
         }
+        public static void BackupProcessedFile(string strOriginalFilePath, string strTargetPath, bool overwriteExisting = true)
+        {
+            try
+            {
+                File.Copy(strOriginalFilePath, strTargetPath, overwriteExisting);               
+                File.Delete(strOriginalFilePath);
+            }
+            catch (Exception ex)
+            {   }
+        }
     }
-
     public enum DocProperty
     {
         Creator,
