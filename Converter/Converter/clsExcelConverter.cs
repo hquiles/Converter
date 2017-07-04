@@ -10,12 +10,12 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using System.IO;
 using System.Configuration;
 using System.Collections.Specialized;
-using static Converter.Library;
+using static FileProcessor.Library;
 using System.Diagnostics;
 
-namespace Converter
+namespace FileProcessor
 {
-    public partial class ExcelConverter
+    public partial class FileProcessor
     {
         public static void Main(string[] args)
         {
@@ -33,6 +33,8 @@ namespace Converter
                             for (int intFileIndex = 0; intFileIndex < Directory.GetFiles(GetAppSetting("ScanningDirectory"), "*.xlsx").Length; intFileIndex++)
                             {
                                 //Process Excel File
+
+
 
                                 //Backup Files
                                 strFileName = Path.GetFileName(Directory.GetFiles(GetAppSetting("ScanningDirectory"), "*.xlsx")[intFileIndex]);

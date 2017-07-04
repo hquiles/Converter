@@ -50,10 +50,13 @@
     <Compile Include="Core Functionality\Extensions.cs" />
     <Compile Include="Core Functionality\Library.cs" />
     <Compile Include="clsExcelConverter.cs" />
+    <Compile Include="ExcelToXmlConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

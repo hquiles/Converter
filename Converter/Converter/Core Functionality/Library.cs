@@ -4,13 +4,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Converter
+namespace FileProcessor
 {
     public static class Library
     {
@@ -39,11 +40,11 @@ namespace Converter
             return ((ICollection)theSheets).Count;
             throw new NotImplementedException();
         }
-        public static string GetAppSetting(string key)
+        public static string GetAppSetting(string strKey)
         {
             try
             {
-                return ConfigurationManager.AppSettings[key];
+                return ConfigurationManager.AppSettings[strKey];
             }
             catch (Exception)
             {
@@ -124,7 +125,9 @@ namespace Converter
                 File.Delete(strOriginalFilePath);
             }
             catch (Exception ex)
-            {   }
+            {
+                Debug.WriteLine(ex.StackTrace);
+            }
         }
     }
     public enum DocProperty
