@@ -126,6 +126,11 @@ namespace FileProcessor
             }
             catch (Exception ex)
             {
+                if (ex.GetType().Name == "DirectoryNotFoundException")
+                {
+
+                }
+               
                 Debug.WriteLine(ex.StackTrace);
             }
         }

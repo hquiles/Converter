@@ -11,7 +11,7 @@ namespace Converter
     public class ExcelToXmlConverter
     {
         public List<Sheet> MyProperty { get; set; }
-        public List<Head MyProperty { get; set; }
+        public List<Header> MyProperty2 { get; set; }
 
 
     }

@@ -45,6 +45,63 @@ namespace FileProcessor
                             }
                         }
                     }
+                    else
+                    {
+                        List<string> validOptions = new List<string>();
+                        validOptions.Add("yes");
+                        validOptions.Add("no");
+                        validOptions.Add("y");
+                        validOptions.Add("n");
+
+                        Console.WriteLine($"Directory not found at {GetAppSetting("ScanningDirectory")}");
+                        Console.WriteLine("Would you like to create it? enter y,yes,n,no");
+
+                        var response = Console.ReadLine().ToLower();
+                        while (!validOptions.Contains(response))
+                        {
+                            Console.WriteLine("Valid options are y,yes,n,no ... Try again...");
+                            response = Console.ReadLine().ToLower();
+
+
+                        }
+                        //Exit Program
+                        if (response.Equals("no") || response.Equals("n"))
+                        {
+                            Console.WriteLine("Directory was not created, press any key to exit");
+                            Console.ReadKey();
+                            Environment.Exit(0);
+                        }
+
+                        else
+                        {
+                            Console.WriteLine($"Are you sure you want to create directory at {GetAppSetting("ScanningDirectory")}?");
+                            response = Console.ReadLine().ToLower();
+
+                            while (!validOptions.Contains(response))
+                            {
+                                Console.WriteLine("Valid options are y,yes,n,no ... Try again...");
+                                response = Console.ReadLine().ToLower();
+                            }
+                            //Exit Program
+                            if (response.Equals("no") || response.Equals("n"))
+                            {
+                                Console.WriteLine("Directory was not created, press any key to exit");
+                                Console.ReadKey();
+                                Environment.Exit(0);
+                            }
+                            else
+                            {
+                                //Create Directory
+                                Directory.CreateDirectory($"{GetAppSetting("ScanningDirectory")}");
+                                if (Directory.Exists($"{GetAppSetting("ScanningDirectory")}"))
+                                {
+                                    Console.WriteLine($"Directory was created at {GetAppSetting("ScanningDirectory")}");
+                                }
+                            }
+                        }
+
+
+                    }
                 }
                 catch (Exception ex)
                 {
