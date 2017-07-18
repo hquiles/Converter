@@ -11,34 +11,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileProcessor
+namespace Converter
 {
     public static class Library
     {
-        public static Sheets GetWorksheets(string strFileName)
+       
+        public static List<string> GetWorksheetNames(string strFileName)
         {
-            Sheets theSheets = null;
-
-            using (SpreadsheetDocument document =
-                SpreadsheetDocument.Open(strFileName, false))
+            using (SpreadsheetDocument spreadSheetDocument = SpreadsheetDocument.Open(strFileName, false))
             {
-                WorkbookPart wbPart = document.WorkbookPart;
-                theSheets = wbPart.Workbook.Sheets;
+                Workbook workbook = spreadSheetDocument.WorkbookPart.Workbook;
+                var sheets = workbook.Sheets.Cast<Sheet>().Select(x=>x.Name.ToString()).ToList();
+                return sheets; ;
             }
-            return theSheets;
         }
-        public static int GetWorksheetCount(string strFileName)
+        public static List<Sheet> GetWorksheetObjects(string strFileName)
         {
-            Sheets theSheets = null;
-
-            using (SpreadsheetDocument document =
-                SpreadsheetDocument.Open(strFileName, false))
+            using (SpreadsheetDocument spreadSheetDocument = SpreadsheetDocument.Open(strFileName, false))
             {
-                WorkbookPart wbPart = document.WorkbookPart;
-                theSheets = wbPart.Workbook.Sheets;
+                Workbook workbook = spreadSheetDocument.WorkbookPart.Workbook;
+                var sheets = workbook.Sheets.Cast<Sheet>().Select(x => x).ToList();
+                return sheets; ;
             }
-            return ((ICollection)theSheets).Count;
-            throw new NotImplementedException();
         }
         public static string GetAppSetting(string strKey)
         {
@@ -121,7 +115,7 @@ namespace FileProcessor
         {
             try
             {
-                File.Copy(strOriginalFilePath, strTargetPath, overwriteExisting);               
+                File.Copy(strOriginalFilePath, strTargetPath, overwriteExisting);
                 File.Delete(strOriginalFilePath);
             }
             catch (Exception ex)
@@ -129,10 +123,42 @@ namespace FileProcessor
                 if (ex.GetType().Name == "DirectoryNotFoundException")
                 {
 
+                    Directory.CreateDirectory(strOriginalFilePath);
                 }
-               
-                Debug.WriteLine(ex.StackTrace);
+                else
+                    Console.WriteLine($"{ex.StackTrace} press any key to continue execution");
+                Console.ReadKey();
             }
+
+
+        }
+        public static bool CreateDirectories(string strDropboxDirectory, string strBackupDirectory)
+        {
+            bool directoriesExist = Directory.Exists(strDropboxDirectory) && Directory.Exists(strBackupDirectory);
+
+            try
+            {
+                while (!directoriesExist)
+                {
+                    Directory.CreateDirectory(strDropboxDirectory);
+                    Directory.CreateDirectory(strBackupDirectory);
+
+                    directoriesExist = Directory.Exists(strDropboxDirectory) && Directory.Exists(strBackupDirectory);
+
+                    if (directoriesExist)
+                    {
+                        Console.WriteLine("Directories created...");                       
+                        Console.WriteLine();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"MESSAGE: { ex.Message}");               
+                return directoriesExist;
+            }
+
+            return directoriesExist;
         }
     }
     public enum DocProperty

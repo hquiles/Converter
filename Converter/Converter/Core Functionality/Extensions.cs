@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileProcessor.Core_Functionality
+namespace Converter.Core_Functionality
 {
     class Extensions
     {

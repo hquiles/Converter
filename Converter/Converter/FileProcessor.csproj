@@ -49,8 +49,8 @@
   <ItemGroup>
     <Compile Include="Core Functionality\Extensions.cs" />
     <Compile Include="Core Functionality\Library.cs" />
-    <Compile Include="clsExcelConverter.cs" />
-    <Compile Include="ExcelToXmlConverter.cs" />
+    <Compile Include="clsConverter.cs" />
+    <Compile Include="ExcelToXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
